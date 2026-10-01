@@ -1,0 +1,41 @@
+name: "SQL Sentinel"
+description: "The code reviewer for AI-written SQL — validates SQL added in pull requests against your schema, explains it in plain English, and flags dangerous changes."
+author: "Siva Kishore Reddy Allu"
+
+inputs:
+  schema_path:
+    description: "Path to the schema file (CREATE TABLE statements), relative to the repo root."
+    required: false
+    default: "schema.sql"
+  dialect:
+    description: "SQL dialect: postgres, mysql, bigquery, snowflake, sqlite, trino."
+    required: false
+    default: "postgres"
+  file_pattern:
+    description: "Glob for SQL files to review (supports * and **)."
+    required: false
+    default: "**/*.sql"
+  fail_on:
+    description: "Fail the check when the verdict reaches this level: never, review, or blocked."
+    required: false
+    default: "blocked"
+  post_comment:
+    description: "Post/update a sticky PR comment with the review (true/false)."
+    required: false
+    default: "true"
+  github_token:
+    description: "Token for the GitHub API (listing PR files, posting comments)."
+    required: false
+    default: "${{ github.token }}"
+
+outputs:
+  verdict:
+    description: "Overall verdict: safe, review, or blocked."
+
+branding:
+  icon: "shield"
+  color: "blue"
+
+runs:
+  using: "node20"
+  main: "src/index.js"
