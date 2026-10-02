@@ -25,7 +25,7 @@ jobs:
       pull-requests: write   # needed to post the review comment
     steps:
       - uses: actions/checkout@v4
-      - uses: k1sh0r3/sql-sentinel-action@v1
+      - uses: k1sh0r3/sql-sentinel-action@main   # or pin to a release tag when available
         with:
           schema_path: db/schema.sql
           dialect: postgres
